@@ -19,7 +19,7 @@ namespace UnityStandardAssets.Vehicles.Car
     public class CarController : MonoBehaviour
     {
         [SerializeField] private CarDriveType m_CarDriveType = CarDriveType.AllWheelDrive;
-        [SerializeField] private WheelCollider[] m_WheelColliders = new WheelCollider[4];
+        [SerializeField] private WheelCollider[] m_WheelColliders = new WheelCollider[6];
         [SerializeField] private bool _fourWheelCar = true;
         [SerializeField] private int _wheelsAmount = 4;
         [SerializeField] private GameObject[] m_WheelMeshes = new GameObject[6];

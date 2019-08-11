@@ -38,7 +38,7 @@ public class Car : MonoBehaviour
     public List<GameObject> PlasmaTurretPlaces;
     public List<GameObject> RocketTurretPlaces;
 
-    public void Start() // Start is called on the frame when a script is enabled just before any of the Update methods are called the first time
+    private protected virtual void Start() // Start is called on the frame when a script is enabled just before any of the Update methods are called the first time
     {
         //MainHullTexture = MainHull.GetComponent<MeshRenderer>(); // Get mesh renderer of this ship main hull
 
