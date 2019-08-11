@@ -22,9 +22,9 @@ public class PlayerCameraController : MonoBehaviour
     private float curentMouseRotateSensitivity;
     private float limitRotateY = 90f; // Rotation limit by Y
 
-    private float scrollWheelSensitivity = 10f;
-    private float scrollMax = 6f;
-    private float scrollMin = 0f;
+    [SerializeField] private float scrollWheelSensitivity = 1f;
+    [SerializeField] private float scrollMax = 6f;
+    [SerializeField] private float scrollMin = 0f;
 
     private float cameraRotateAngleX;
     private float cameraRotateAngleY;
@@ -112,7 +112,7 @@ public class PlayerCameraController : MonoBehaviour
 
 
         // Camera scrolling
-        cameraOffset.z += Input.GetAxis("Mouse ScrollWheel") * scrollWheelSensitivity;
+        cameraOffset.z += Input.GetAxis("Mouse ScrollWheel") * scrollWheelSensitivity * 10;
 
 
         // Ray that comes out of the camera and determining contact point if it hit something

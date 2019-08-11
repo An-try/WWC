@@ -26,8 +26,8 @@ public class Car : MonoBehaviour
 
     public int shipFiresAmount = 0;
 
-    public GameObject MainHull;
-    public MeshRenderer MainHullTexture;
+    //public GameObject MainHull;
+    //public MeshRenderer MainHullTexture;
 
     public GameObject TargetCameraRotatesAround; // Player's ship game object around which the camera rotates
 
@@ -40,7 +40,7 @@ public class Car : MonoBehaviour
 
     public void Start() // Start is called on the frame when a script is enabled just before any of the Update methods are called the first time
     {
-        MainHullTexture = MainHull.GetComponent<MeshRenderer>(); // Get mesh renderer of this ship main hull
+        //MainHullTexture = MainHull.GetComponent<MeshRenderer>(); // Get mesh renderer of this ship main hull
 
         thrustForce *= GetComponent<Rigidbody>().mass; // Multiply forward speed by the mass of the ship
         rotationForce *= GetComponent<Rigidbody>().mass; // Multiply rotation speed by the mass of the ship
