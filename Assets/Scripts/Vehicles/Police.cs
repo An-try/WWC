@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Police : Car
+public class Police : Vehicle
 {
     private enum PoliceLightsMode { Identic, Mirror, Snake }
 

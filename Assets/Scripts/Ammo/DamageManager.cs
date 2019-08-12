@@ -26,36 +26,36 @@ public class DamageManager : MonoBehaviour
 
     public void DealProjectileDamage(float kineticDamage, Collision collision)
     {
-        if (collision.gameObject.GetComponentInParent<Car>() == null) // If the game object that was hit does not have a Ship script
+        if (collision.gameObject.GetComponentInParent<Vehicle>() == null) // If the game object that was hit does not have a Ship script
         {
             return; // Return from this method and do not deal any damage because this object is not a ship
         }
 
-        Car carScript = collision.gameObject.GetComponentInParent<Car>(); // Get Ship script of hitted ship
+        Vehicle carScript = collision.gameObject.GetComponentInParent<Vehicle>(); // Get Ship script of hitted ship
         float totalDamage = kineticDamage - kineticDamage * carScript.kineticDefence / 100f; // Set total damage
-        carScript.HP -= totalDamage; // Apply damage to ship
+        carScript.Hp -= totalDamage; // Apply damage to ship
     }
 
     public void DealLaserDamage(float laserDamage, RaycastHit hit)
     {
-        if (hit.transform.GetComponentInParent<Car>() == null) // If the game object that was hit does not have a Ship script
+        if (hit.transform.GetComponentInParent<Vehicle>() == null) // If the game object that was hit does not have a Ship script
         {
             return; // Return from this method and do not deal any damage because this object is not a ship
         }
 
-        Car carScript = hit.transform.GetComponentInParent<Car>(); // Get Ship script of hitted ship
+        Vehicle carScript = hit.transform.GetComponentInParent<Vehicle>(); // Get Ship script of hitted ship
         float totalDamage = laserDamage - laserDamage * carScript.laserDefence / 100f; // Set total damage
-        carScript.HP -= totalDamage; // Apply damage to ship
+        carScript.Hp -= totalDamage; // Apply damage to ship
     }
 
     public void DealRocketDamage(Rocket rocket, Collision collision)
     {
-        if (collision.gameObject.GetComponentInParent<Car>() == null) // If the game object that was hit does not have a Ship script
+        if (collision.gameObject.GetComponentInParent<Vehicle>() == null) // If the game object that was hit does not have a Ship script
         {
             return; // Return from this method and do not deal any damage because this object is not a ship
         }
 
-        Car carScript = collision.gameObject.GetComponentInParent<Car>(); // Get Ship script of hitted ship
+        Vehicle carScript = collision.gameObject.GetComponentInParent<Vehicle>(); // Get Ship script of hitted ship
 
         // Set the damage
         float kineticDamage = rocket.rocketWarhead.kineticDamage - rocket.rocketWarhead.kineticDamage * carScript.kineticDefence / 100f;
@@ -64,29 +64,29 @@ public class DamageManager : MonoBehaviour
 
         float totalDamage = kineticDamage + explosionDamage + fragmentDamage; // Set total damage
 
-        carScript.HP -= totalDamage; // Apply damage to ship
+        carScript.Hp -= totalDamage; // Apply damage to ship
 
         // Start ship burning if the weapon has flame effect
         if (rocket.rocketWarhead.flameTime > 0) // If the weapon has flame time
         {
             // Start a coroutine of burning that deals damage over time
             StartCoroutine(Burning(carScript, rocket.rocketWarhead.flameDamage, rocket.rocketWarhead.flameTime));
-            carScript.shipFiresAmount++; // Add an ship fire to ship fires amount of this ship. Thus, we can check if ship is on fire
+            carScript.vehicleFiresAmount++; // Add an ship fire to ship fires amount of this ship. Thus, we can check if ship is on fire
         }
     }
     
-    public IEnumerator Burning(Car carScript, float flameForce, float flameTime)
+    public IEnumerator Burning(Vehicle vehicle, float flameForce, float flameTime)
     {
         float flameTimeStep = 1f;
 
         while (flameTime > 0) // While there is a flame time
         {
             yield return new WaitForSeconds(flameTimeStep); // Wait for flame time
-            float damage = (flameForce - flameForce * carScript.flameDefence / 100f) * flameTimeStep;
-            carScript.HP -= damage; // Set damage including time step
+            float damage = (flameForce - flameForce * vehicle.flameDefence / 100f) * flameTimeStep;
+            vehicle.Hp -= damage; // Set damage including time step
             flameTime -= flameTimeStep; // Decrease the flame time
         }
 
-        carScript.shipFiresAmount--; // Subtract the number of fires when the fire goes out
+        vehicle.vehicleFiresAmount--; // Subtract the number of fires when the fire goes out
     }
 }

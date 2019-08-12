@@ -394,8 +394,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2370324115311922119}
+  - component: {fileID: 8952090895497817816}
   m_Layer: 0
-  m_Name: Axis_Military_Big
+  m_Name: Axis_Military_Big_2x4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -418,6 +419,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8952090895497817816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2781172396670229843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b41948014064ca4a825e1abd7739690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vehiclePartImage: {fileID: 21300000, guid: b707ab965c0295e48984ecd7fe151ebd, type: 3}
 --- !u!1 &2830970910675367238
 GameObject:
   m_ObjectHideFlags: 0

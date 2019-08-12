@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Player))]
 public class PlayerCameraController : MonoBehaviour
 {
     public static PlayerCameraController instance; // Singleton for this script
 
-    public GameObject Player;
+    private Player _player;
 
     private Camera PlayerCamera;
 
@@ -43,6 +44,11 @@ public class PlayerCameraController : MonoBehaviour
         Manager.instance.onPlayerAssigned += ActivateCamera; // Calls when player ship spawned
     }
 
+    private void Start()
+    {
+        _player = GetComponent<Player>();
+    }
+
     private void ActivateCamera()
     {
         PlayerCamera = GetComponent<Camera>(); // Get camera component on this game object
@@ -72,7 +78,7 @@ public class PlayerCameraController : MonoBehaviour
         //}
 
         // If player ship has been destroyed set camera to default field of view, set default sensitivity and allow to rotate a camera
-        if (Player == null)
+        if (!_player.Alive)
         {
             PlayerCamera.fieldOfView = cameraDefaultFieldOfView; // Set default camera field of view
             curentMouseRotateSensitivity = defaultMouseRotateSensitivity; // Set default mouse rotate sensitivity

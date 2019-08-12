@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Car : MonoBehaviour
+public class Vehicle : MonoBehaviour
 {
-    public float HP = 10000f; // Ship health points
+    internal float Hp; // Ship health points
 
     // Defence in percentage
     public float kineticDefence = 10f;
@@ -15,16 +15,7 @@ public class Car : MonoBehaviour
     public float maxSpeed = 100f;
     public int transmission = 0; // Transmission can be positive and negative. This defines the ship moving direction - forward or backward
 
-    public float thrustForce = 1f; // Forward or backward speed
-    public float strafeForce = 200f; // Strafe speed. Directions: up, down, right, left
-    public float rotationForce = 500f;
-    public float maxRotationSpeed = 0.1f;
-
-    public float stopForce = 2f;
-    public float autoStopForce = 1f;
-    public float currentStopForce = 0f;
-
-    public int shipFiresAmount = 0;
+    public int vehicleFiresAmount = 0;
 
     //public GameObject MainHull;
     //public MeshRenderer MainHullTexture;
@@ -40,11 +31,6 @@ public class Car : MonoBehaviour
 
     private protected virtual void Start() // Start is called on the frame when a script is enabled just before any of the Update methods are called the first time
     {
-        //MainHullTexture = MainHull.GetComponent<MeshRenderer>(); // Get mesh renderer of this ship main hull
-
-        thrustForce *= GetComponent<Rigidbody>().mass; // Multiply forward speed by the mass of the ship
-        rotationForce *= GetComponent<Rigidbody>().mass; // Multiply rotation speed by the mass of the ship
-
         // Spawn laser beam turrets on the ship
         foreach (GameObject TurretPlace in LaserTurretPlaces)
         {
@@ -66,12 +52,6 @@ public class Car : MonoBehaviour
             rocketTurret.tag = gameObject.tag; // Set this ship tag to the new turret
         }
 
-        // Set this ship tag to all self target markers of this ship
-        //for (int markerCounter = 0; markerCounter < SelfTargetMarkers.transform.childCount; markerCounter++)
-        //{
-        //    SelfTargetMarkers.transform.GetChild(markerCounter).tag = gameObject.tag;
-        //}
-
         // Set this ship tag to all game objects with colliders on the ship
         foreach (Collider collider in GetComponentsInChildren<Collider>())
         {
@@ -81,14 +61,14 @@ public class Car : MonoBehaviour
         //InvokeRepeating("SetShipBurningSimulationIfShipIsOnFire", 0f, 0.1f); // Start or stop ship burning simulation
     }
 
-    private void FixedUpdate()
-    {
-        if (HP <= 0) // If health points are zero
-        {
-            DestroyCar(); // Destroy this ship
-            return;
-        }
-    }
+    //private void FixedUpdate()
+    //{
+    //    if (Hp <= 0) // If health points are zero
+    //    {
+    //        DestroyCar(); // Destroy this ship
+    //        return;
+    //    }
+    //}
 
     //private void SetShipBurningSimulationIfShipIsOnFire()
     //{

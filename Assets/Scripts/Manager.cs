@@ -42,8 +42,7 @@ public class Manager : MonoBehaviour
     public GameObject LaserPulseTurretPrefab;
     public GameObject PlasmaTurretPrefab;
     public GameObject RocketTurretPrefab;
-    
-    public GameObject StartStation; // Start game station
+
     public GameObject Player;
 
     public GameObject PlayerInfoCanvas; // Main canvas that contains all player ship UI panels
