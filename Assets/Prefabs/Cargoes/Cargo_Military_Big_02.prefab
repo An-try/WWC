@@ -248,14 +248,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90be9346a309a224680fd0814aa6a462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _vehiclePartImage: {fileID: 21300000, guid: 21af86a5697052c418ca6b8c28ccb0f7, type: 3}
+  VehiclePartImage: {fileID: 21300000, guid: 21af86a5697052c418ca6b8c28ccb0f7, type: 3}
   _defaultMaterials:
   - {fileID: 8396706588657560128, guid: f5cf5f2e1704e43408ff60c69f8b2a04, type: 3}
   - {fileID: 6120424059141043197, guid: f5cf5f2e1704e43408ff60c69f8b2a04, type: 3}
   - {fileID: -8643518103264546373, guid: f5cf5f2e1704e43408ff60c69f8b2a04, type: 3}
   - {fileID: -7610472106862157831, guid: f5cf5f2e1704e43408ff60c69f8b2a04, type: 3}
   - {fileID: 4908948335504110115, guid: f5cf5f2e1704e43408ff60c69f8b2a04, type: 3}
-  _cargoRenderers:
+  _partRenderers:
   - {fileID: 2183696718905226558}
   - {fileID: 3816261635107192367}
   - {fileID: 6320351901147392110}

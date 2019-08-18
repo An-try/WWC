@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    internal bool Alive;
+    internal bool IsAlive;
 
     internal GameObject CurrentAxis;
     internal GameObject CurrentCabin;
     internal GameObject CurrentCargo;
+
+    private bool _autoFire = false;
 }

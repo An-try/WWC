@@ -184,7 +184,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5507694936574167290}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7602677850298497608
 MeshFilter:
@@ -261,7 +261,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5507694936574167290}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4544321719145991656
 MeshFilter:
@@ -382,7 +382,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5507694936574167290}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6976953979024505230
 MeshFilter:
@@ -459,7 +459,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5507694936574167290}
-  m_RootOrder: 8
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5316727725844501448
 MeshFilter:
@@ -536,7 +536,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5507694936574167290}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8007826169225366128
 MeshFilter:
@@ -657,13 +657,13 @@ Transform:
   m_Children:
   - {fileID: 6317930029291996500}
   - {fileID: 2296929033062681019}
+  - {fileID: 1547018049151563137}
+  - {fileID: 7513244614091942046}
   - {fileID: 4962119533611544613}
   - {fileID: 9138127501102641881}
   - {fileID: 1112452511980941386}
   - {fileID: 6319323057629132893}
   - {fileID: 6464337695070415298}
-  - {fileID: 7513244614091942046}
-  - {fileID: 1547018049151563137}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -679,12 +679,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b7fd4b29283d4439b9f251d59fb530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _vehiclePartImage: {fileID: 21300000, guid: 813d5f9b46db5c64098cd750264ef66e, type: 3}
+  VehiclePartImage: {fileID: 21300000, guid: 813d5f9b46db5c64098cd750264ef66e, type: 3}
   _defaultMaterials:
   - {fileID: 6921602017781793660, guid: 898454a34a7ff394684dd93fca513051, type: 3}
   - {fileID: -3934657120487692249, guid: 898454a34a7ff394684dd93fca513051, type: 3}
   - {fileID: -2399695512757909360, guid: 898454a34a7ff394684dd93fca513051, type: 3}
-  _cabinRenderers:
+  _partRenderers:
   - {fileID: 8548155182181764373}
   - {fileID: 3930755013561656820}
   - {fileID: 5771256439079278535}
@@ -718,7 +718,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5507694936574167290}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2244632761491461976
 MeshFilter:
@@ -795,7 +795,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5507694936574167290}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1506293740543282430
 MeshFilter:

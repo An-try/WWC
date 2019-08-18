@@ -41,7 +41,7 @@ public class PlayerCameraController : MonoBehaviour
             Destroy(this); // Destroy this script
         }
 
-        Manager.instance.onPlayerAssigned += ActivateCamera; // Calls when player ship spawned
+        Manager.Instance.onPlayerAssigned += ActivateCamera; // Calls when player ship spawned
     }
 
     private void Start()
@@ -55,8 +55,6 @@ public class PlayerCameraController : MonoBehaviour
         cameraDefaultFieldOfView = PlayerCamera.fieldOfView; // Set the current camera field of view as default
         cameraAimRayLength = PlayerCamera.farClipPlane; // Set ray length
         curentMouseRotateSensitivity = defaultMouseRotateSensitivity; // Set current mouse rotate sensitivity
-
-        Cursor.visible = false;
 
         limitRotateY = Mathf.Abs(limitRotateY); // Get the absolute value of limit rotate Y
         limitRotateY = Mathf.Clamp(limitRotateY, -Mathf.Infinity, 90); // Clamp limit rotate Y up to 90
@@ -78,7 +76,7 @@ public class PlayerCameraController : MonoBehaviour
         //}
 
         // If player ship has been destroyed set camera to default field of view, set default sensitivity and allow to rotate a camera
-        if (!_player.Alive)
+        if (!_player.IsAlive)
         {
             PlayerCamera.fieldOfView = cameraDefaultFieldOfView; // Set default camera field of view
             curentMouseRotateSensitivity = defaultMouseRotateSensitivity; // Set default mouse rotate sensitivity
@@ -130,9 +128,9 @@ public class PlayerCameraController : MonoBehaviour
         {
             cameraLookingPoint = new Vector3(hit.point.x, hit.point.y, hit.point.z); // Set hit coordinates
 
-            Manager.instance.CurrentSelectedTarget = hit.transform.gameObject; // Set current selected target as hitted game object
-            Manager.instance.LastSelectedTarget = hit.transform.gameObject; // Set last selected target as hitted game object
-            Manager.instance.onCurrentSelectedTargetAssigned?.Invoke();
+            Manager.Instance.CurrentSelectedTarget = hit.transform.gameObject; // Set current selected target as hitted game object
+            Manager.Instance.LastSelectedTarget = hit.transform.gameObject; // Set last selected target as hitted game object
+            Manager.Instance.onCurrentSelectedTargetAssigned?.Invoke();
         }
         else // If ray doesn't hit anything
         {
@@ -141,7 +139,7 @@ public class PlayerCameraController : MonoBehaviour
                 transform.position.y + transform.forward.y * cameraAimRayLength,
                 transform.position.z + transform.forward.z * cameraAimRayLength);
 
-            Manager.instance.CurrentSelectedTarget = null; // Clear current selected target
+            Manager.Instance.CurrentSelectedTarget = null; // Clear current selected target
         }
     }
 }

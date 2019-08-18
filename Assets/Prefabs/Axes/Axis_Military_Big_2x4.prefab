@@ -431,7 +431,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b41948014064ca4a825e1abd7739690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _vehiclePartImage: {fileID: 21300000, guid: b707ab965c0295e48984ecd7fe151ebd, type: 3}
+  VehiclePartImage: {fileID: 21300000, guid: b707ab965c0295e48984ecd7fe151ebd, type: 3}
+  _defaultMaterials:
+  - {fileID: -7610472106862157831, guid: 898454a34a7ff394684dd93fca513051, type: 3}
+  _partRenderers:
+  - {fileID: 5994392317021634342}
 --- !u!1 &2830970910675367238
 GameObject:
   m_ObjectHideFlags: 0

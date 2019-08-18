@@ -19,7 +19,7 @@ public class Manager : MonoBehaviour
 
     // TODO: Make an object pooling
 
-    public static Manager instance; // Singleton for this script
+    internal static Manager Instance; // Singleton for this script
 
     private int currentFPS; // Current frames per second
 
@@ -65,9 +65,9 @@ public class Manager : MonoBehaviour
 
     private void Awake() // Awake is called when the script instance is being loaded
     {
-        if (instance == null) // If instance not exist
+        if (!Instance) // If instance not exist
         {
-            instance = this; // Set up instance as this script
+            Instance = this; // Set up instance as this script
         }
         else //If instance already exists
         {
@@ -124,7 +124,7 @@ public class Manager : MonoBehaviour
         //SpawnShip("Enemy", GameObject.Find("ShipSpawn1").transform.position, GameObject.Find("ShipSpawn1").transform.localRotation);
         //SpawnShip("Enemy", GameObject.Find("ShipSpawn2").transform.position, GameObject.Find("ShipSpawn2").transform.localRotation);
     }
-
+    
     private void Update() // Update is called every frame
     {
         //currentFPS = (int)(1f / Time.unscaledDeltaTime); // Get current frames per second

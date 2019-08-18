@@ -34,21 +34,21 @@ public class Vehicle : MonoBehaviour
         // Spawn laser beam turrets on the ship
         foreach (GameObject TurretPlace in LaserTurretPlaces)
         {
-            GameObject laserPulseTurret = Instantiate(Manager.instance.LaserPulseTurretPrefab, TurretPlace.transform.position, TurretPlace.transform.rotation, TurretPlace.transform);
+            GameObject laserPulseTurret = Instantiate(Manager.Instance.LaserPulseTurretPrefab, TurretPlace.transform.position, TurretPlace.transform.rotation, TurretPlace.transform);
             laserPulseTurret.tag = gameObject.tag; // Set this ship tag to the new turret
         }
 
         // Spawn plasma turrets on the ship
         foreach (GameObject TurretPlace in PlasmaTurretPlaces)
         {
-            GameObject plasmaTurret = Instantiate(Manager.instance.PlasmaTurretPrefab, TurretPlace.transform.position, TurretPlace.transform.rotation, TurretPlace.transform);
+            GameObject plasmaTurret = Instantiate(Manager.Instance.PlasmaTurretPrefab, TurretPlace.transform.position, TurretPlace.transform.rotation, TurretPlace.transform);
             plasmaTurret.tag = gameObject.tag; // Set this ship tag to the new turret
         }
 
         // Spawn rocket turrets on the ship
         foreach (GameObject TurretPlace in RocketTurretPlaces)
         {
-            GameObject rocketTurret = Instantiate(Manager.instance.RocketTurretPrefab, TurretPlace.transform.position, TurretPlace.transform.rotation, TurretPlace.transform);
+            GameObject rocketTurret = Instantiate(Manager.Instance.RocketTurretPrefab, TurretPlace.transform.position, TurretPlace.transform.rotation, TurretPlace.transform);
             rocketTurret.tag = gameObject.tag; // Set this ship tag to the new turret
         }
 
