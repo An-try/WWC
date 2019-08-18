@@ -13,7 +13,7 @@ public class PenetrationTurret : Turret
 
         _turnRate = 30f;
         _turretRange = 50000f;
-        _cooldown = 0.5f;
+        _cooldown = 1f;
         _currentCooldown = _cooldown;
 
         _rightTraverse = 180f;
@@ -34,7 +34,8 @@ public class PenetrationTurret : Turret
 
         // Creating shoot animation with position and rotation of the shoot place. Also parent shoot animation to the shoot place
         GameObject shootAnimation = Instantiate(ShootAnimationPrefab, ShootPlace.transform.position, ShootPlace.transform.rotation, ShootPlace.transform);
-        Destroy(shootAnimation.gameObject, shootAnimation.GetComponent<ParticleSystem>().main.duration);
+        shootAnimation.GetComponentInChildren<ParticleSystem>().Play();
+        Destroy(shootAnimation.gameObject, shootAnimation.GetComponentInChildren<ParticleSystem>().main.duration);
 
         // Creating bullet with position and rotation of the shoot place
         GameObject bullet = Instantiate(ProjectilePrefab, ShootPlace.transform.position, ShootPlace.transform.rotation);
@@ -44,5 +45,7 @@ public class PenetrationTurret : Turret
         _currentCooldown = _cooldown; // Add a cooldown to this turret
 
         GetComponent<AudioSource>().Play(); // Play an shoot sound
+        GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
+        GetComponent<Animator>().SetTrigger("Shoot");
     }
 }

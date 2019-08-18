@@ -2726,6 +2726,7 @@ GameObject:
   - component: {fileID: 830757082}
   - component: {fileID: 830757084}
   - component: {fileID: 830757085}
+  - component: {fileID: 830757086}
   m_Layer: 0
   m_Name: MANAGERS
   m_TagString: Untagged
@@ -2748,7 +2749,8 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 1207247785}
   FPSInfo: {fileID: 0}
   WarningMessageObject: {fileID: 0}
-  LaserPulseTurretPrefab: {fileID: 3979640444821360120}
+  LaserPulseTurretPrefab: {fileID: 3979640444821360120, guid: 37d21887ae7977a4f9ceb8c8c94680c9,
+    type: 3}
   PlasmaTurretPrefab: {fileID: 0}
   RocketTurretPrefab: {fileID: 0}
   Player: {fileID: 1207247785}
@@ -2818,6 +2820,105 @@ MonoBehaviour:
   _militaryBigCargoes:
   - {fileID: 2558590904796745497, guid: bf3390f57424e81488c1136925327280, type: 3}
   - {fileID: 4859987112136749810, guid: 0d2e8b06e4c0f3244910256b734b3599, type: 3}
+--- !u!114 &830757086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830757081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d44fa8797612834394f5982062031c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Okay:
+  - {fileID: 8300000, guid: cf2db3fe0679bc444837b9325a13b5d9, type: 3}
+  - {fileID: 8300000, guid: 9d03f2b9cc0ad7d408ffb5374a5a7202, type: 3}
+  - {fileID: 8300000, guid: 4ce5fcb9b84209a479c12d2ebfd3652b, type: 3}
+  - {fileID: 8300000, guid: f14cb7680253412458e54ee54b6077f3, type: 3}
+  - {fileID: 8300000, guid: 28e4f611957068f449cad58313494726, type: 3}
+  - {fileID: 8300000, guid: 7d548476cc6e1974c922b6d866e6690b, type: 3}
+  - {fileID: 8300000, guid: 5e74ce07a9c9b3e44a81e50cb89d858f, type: 3}
+  - {fileID: 8300000, guid: b4eb6b006b0af844fbe62300bf222928, type: 3}
+  - {fileID: 8300000, guid: a8c67cdd71360b3438ff005502dbd58f, type: 3}
+  - {fileID: 8300000, guid: f1095ac75dff1094983e0a395773b1d9, type: 3}
+  - {fileID: 8300000, guid: 3daf2ac4620ec0e44a7facd77bac91fb, type: 3}
+  - {fileID: 8300000, guid: 68bd33df112983c4d9d23d18b7139705, type: 3}
+  - {fileID: 8300000, guid: 243ea04bbdf80fd4d8cd61d8f110fb64, type: 3}
+  No:
+  - {fileID: 8300000, guid: 4e822ac3924cfcc4a985a7af1dc73e4f, type: 3}
+  - {fileID: 8300000, guid: 164a28ba8c520ad4ba756252661e44c9, type: 3}
+  - {fileID: 8300000, guid: a68144ec411138648ba5710efeddee10, type: 3}
+  - {fileID: 8300000, guid: 830b440824469464aab5076f816ece8b, type: 3}
+  - {fileID: 8300000, guid: 1cc56361b3d6bbd4aad77b5983cb0d0b, type: 3}
+  - {fileID: 8300000, guid: 38d578d1dd4bfae4797db52ec1e4268f, type: 3}
+  - {fileID: 8300000, guid: 805f7c03c2483bb46af7517eb1d1d6a6, type: 3}
+  - {fileID: 8300000, guid: 2162c06f5b2531449899cfa74bd6607d, type: 3}
+  - {fileID: 8300000, guid: 2f20708f27a3114448ab61cfdd120448, type: 3}
+  - {fileID: 8300000, guid: 077f4aaed73391e409fac47165fefbce, type: 3}
+  StandingBy:
+  - {fileID: 8300000, guid: b38de1024e0a16644bd166d8868b5df0, type: 3}
+  - {fileID: 8300000, guid: de90df866c4e9e54baba4b95ae0a4332, type: 3}
+  - {fileID: 8300000, guid: c3e07961dabea5a4a9b08d8791944e4c, type: 3}
+  - {fileID: 8300000, guid: b35deac379fc1ca48814115f2352e8f9, type: 3}
+  EnemySpotted:
+  - {fileID: 8300000, guid: c0822271090d4a343ae359529e81ac8f, type: 3}
+  - {fileID: 8300000, guid: e9258da5bff9e0e4cbe4ffe712a2f04f, type: 3}
+  - {fileID: 8300000, guid: 32411f81d2a7d254fa00327263f0539a, type: 3}
+  - {fileID: 8300000, guid: 3811143fc3c3afa4aa8264f075c8c971, type: 3}
+  - {fileID: 8300000, guid: 7573aa46541537b429777f5aad79d690, type: 3}
+  - {fileID: 8300000, guid: 8b0d1789c3e59e041955d8dfd97edaaf, type: 3}
+  - {fileID: 8300000, guid: d05d01c89c759b24697a53790fd2c99b, type: 3}
+  - {fileID: 8300000, guid: 6e435924d502b35478847eed138255ed, type: 3}
+  - {fileID: 8300000, guid: 97de196f738112249812fb9598d7caaf, type: 3}
+  - {fileID: 8300000, guid: 50a5b695c65baac419ff1af474994c9d, type: 3}
+  EngagingEnemy:
+  - {fileID: 8300000, guid: 2afa1d52e61bdd44295f8af0161296a0, type: 3}
+  - {fileID: 8300000, guid: 95739393f34a97b44ae036affc1950cb, type: 3}
+  - {fileID: 8300000, guid: c63c9217eb3877e4f9f87dbd770930fe, type: 3}
+  - {fileID: 8300000, guid: 299dcc9091fe52c49954a0442547dc92, type: 3}
+  - {fileID: 8300000, guid: f971149ef54839841a8762a857c4385f, type: 3}
+  - {fileID: 8300000, guid: 821a5d25161f16a458606c21429525ca, type: 3}
+  - {fileID: 8300000, guid: 3d0fa4aa2d0e1f74d9e99594b327372a, type: 3}
+  - {fileID: 8300000, guid: f943255381be268438f7c5480593ca8e, type: 3}
+  - {fileID: 8300000, guid: 039270babaefb6d479fd29f625c96bf0, type: 3}
+  - {fileID: 8300000, guid: 24755aba9c85e464ebd9af09263c3fa7, type: 3}
+  - {fileID: 8300000, guid: 483c3abd6b933544ea59bf818eabccdc, type: 3}
+  UnderFire:
+  - {fileID: 8300000, guid: 402396a140611874ab6dbc078abf3329, type: 3}
+  - {fileID: 8300000, guid: fbcebd875ac13b746b50666838097637, type: 3}
+  - {fileID: 8300000, guid: 83efee22cfadf2243a92e24831080e2b, type: 3}
+  - {fileID: 8300000, guid: e0004c5d31ef8f4448fb957a9729b729, type: 3}
+  - {fileID: 8300000, guid: e44e7f3625e08274794974fe53bff5d4, type: 3}
+  - {fileID: 8300000, guid: 5c099d1586b7ce14ba191c9316a29a68, type: 3}
+  - {fileID: 8300000, guid: e604d739f213eb54c8d14d978f01c6b0, type: 3}
+  FallBack:
+  - {fileID: 8300000, guid: b06169f82e6027146be59704309f07ca, type: 3}
+  - {fileID: 8300000, guid: b22b9de6eaf6d6847b6f05db3690817e, type: 3}
+  - {fileID: 8300000, guid: 45ee73795f31a3245b68c789e1478649, type: 3}
+  - {fileID: 8300000, guid: 902801ee31da2e94dbc9a65019426863, type: 3}
+  EnemyOutOfRange:
+  - {fileID: 8300000, guid: 06e2fe68ee2a5de47b50e241190ccca9, type: 3}
+  - {fileID: 8300000, guid: 86872c912f06b2d4b94336fadfe022fa, type: 3}
+  KillConfirmed:
+  - {fileID: 8300000, guid: a33df4848d1ed2049bf6ff2fca5ce472, type: 3}
+  - {fileID: 8300000, guid: 3af455e565d7e344caf69cec4f611712, type: 3}
+  - {fileID: 8300000, guid: 9090bdd1fc1024a408563aa3c1631e26, type: 3}
+  - {fileID: 8300000, guid: 829ae911f3e0309479a65ddbc6baa648, type: 3}
+  - {fileID: 8300000, guid: 987517fba7d51bc40a34b1674dd1082e, type: 3}
+  - {fileID: 8300000, guid: b0b40af3fa0d0d44eb5265a88ddd8416, type: 3}
+  - {fileID: 8300000, guid: 5457acec90896ed4fbb7913eee7a8911, type: 3}
+  - {fileID: 8300000, guid: 399dee006fb4d8047bfe38d3149b010b, type: 3}
+  - {fileID: 8300000, guid: 860d469418223aa43a9d0aff5b85436c, type: 3}
+  - {fileID: 8300000, guid: 962b1527ccda293438966b720ae58cf4, type: 3}
+  - {fileID: 8300000, guid: 22ff8141239cc1c498365c2f2996b869, type: 3}
+  EasyKill:
+  - {fileID: 8300000, guid: 0e8c270c5a882ac4799513981684beeb, type: 3}
+  - {fileID: 8300000, guid: 4ea253aad0a09ba4599b8d4cf33af26f, type: 3}
+  - {fileID: 8300000, guid: 383476eb847c58b43a996fd39a42a466, type: 3}
+  - {fileID: 8300000, guid: fc9f9bd02596c7641a75f8461a1f5b75, type: 3}
+  - {fileID: 8300000, guid: 67d42b6ee5506614a882aad7d285db5e, type: 3}
 --- !u!1 &845563369
 GameObject:
   m_ObjectHideFlags: 0
@@ -5096,6 +5197,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 446454887968018746, guid: 520c96f50d000f143a010f5619751a9d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 520c96f50d000f143a010f5619751a9d, type: 3}
 --- !u!1 &1411734492
@@ -6006,7 +6112,7 @@ Light:
   serializedVersion: 9
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -7980,12 +8086,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6026618233252904954, guid: 4a76742595114e54195b59152a58b9dd,
     type: 3}
   m_PrefabInstance: {fileID: 9106996746995477219}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3979640444821360120 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3979640444821360120, guid: 37d21887ae7977a4f9ceb8c8c94680c9,
-    type: 3}
-  m_PrefabInstance: {fileID: 6223556240509326247}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4098343134143789006
 PrefabInstance:

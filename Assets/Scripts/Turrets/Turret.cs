@@ -22,7 +22,7 @@ public abstract class Turret : MonoBehaviour
 
     private protected float _turnRate; // Turret turning speed
     private protected float _turretRange;
-    private protected float _cooldown;
+    [SerializeField] private protected float _cooldown;
     private protected float _currentCooldown;
 
     [Range(0.0f, 180.0f)] private protected float _rightTraverse; // Maximum right turn in degrees
