@@ -4,11 +4,28 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    internal bool IsAlive = true;
+    public static Player Instance;
 
-    internal GameObject CurrentAxis;
-    internal GameObject CurrentCabin;
-    internal GameObject CurrentCargo;
+    public delegate void AutoFireChangeEventHandler(bool autoFire);
+    public AutoFireChangeEventHandler autoFireChangeEventHandler;
 
-    private bool _autoFire = false;
+    public bool IsAlive = true;
+
+    public GameObject CurrentAxis;
+    public GameObject CurrentCabin;
+    public GameObject CurrentCargo;
+
+    public bool AutoFire = false;
+
+    private void Awake()
+    {
+        if (!Instance)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 }

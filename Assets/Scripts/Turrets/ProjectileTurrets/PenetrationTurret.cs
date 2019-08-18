@@ -2,10 +2,18 @@
 
 public class PenetrationTurret : Turret
 {
-    public GameObject ProjectilePrefab;
+    private Animator _animator;
+    [SerializeField] private GameObject _projectilePrefab;
 
     private float bulletForce;
     private float turretScatter;
+
+    private protected override void Awake()
+    {
+        base.Awake();
+
+        _animator = GetComponent<Animator>();
+    }
 
     public override void SetTurretParameters()
     {
@@ -38,14 +46,14 @@ public class PenetrationTurret : Turret
         Destroy(shootAnimation.gameObject, shootAnimation.GetComponentInChildren<ParticleSystem>().main.duration);
 
         // Creating bullet with position and rotation of the shoot place
-        GameObject bullet = Instantiate(ProjectilePrefab, ShootPlace.transform.position, ShootPlace.transform.rotation);
+        GameObject bullet = Instantiate(_projectilePrefab, ShootPlace.transform.position, ShootPlace.transform.rotation);
         // Add force to the bullet so it will fly directly
         bullet.GetComponent<Rigidbody>().AddForce((ShootPlace.transform.forward + scatter) * bulletForce);
 
         _currentCooldown = _cooldown; // Add a cooldown to this turret
 
-        GetComponent<AudioSource>().Play(); // Play an shoot sound
-        GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
-        GetComponent<Animator>().SetTrigger("Shoot");
+        _shootingSound.Play(); // Play an shoot sound
+        _shootingSound.pitch = Random.Range(0.9f, 1.1f);
+        _animator.SetTrigger("Shoot");
     }
 }

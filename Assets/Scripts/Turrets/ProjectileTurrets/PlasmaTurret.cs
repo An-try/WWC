@@ -57,6 +57,6 @@ public class PlasmaTurret : Turret
 
         _currentCooldown = _cooldown; // Add a cooldown to this turret
 
-        GetComponent<AudioSource>().Play(); // Play an shoot sound
+        _shootingSound.Play(); // Play an shoot sound
     }
 }

@@ -2,30 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-internal enum GenderOfVoice { Male, Female }
+public enum GenderOfVoice { Male, Female }
 
 public class AudioManager : MonoBehaviour
 {
-    internal static AudioManager Instance;
+    public static AudioManager Instance;
 
-    [SerializeField] private AudioClip[] Okay;
-    [SerializeField] private AudioClip[] No;
+    private AudioSource _audioSource;
 
-    [SerializeField] private AudioClip[] StandingBy;
+    [SerializeField] public AudioClip[] Okay;
+    [SerializeField] public AudioClip[] No;
+    [SerializeField] public AudioClip[] StandingBy;
 
-    [SerializeField] private AudioClip[] EnemySpotted;
-    [SerializeField] private AudioClip[] EngagingEnemy;
+    [SerializeField] public AudioClip[] EnemySpotted;
+    [SerializeField] public AudioClip[] EngagingEnemy;
+    [SerializeField] public AudioClip[] UnderFire;
+    [SerializeField] public AudioClip[] FallBack;
 
-    [SerializeField] private AudioClip[] UnderFire;
-    [SerializeField] private AudioClip[] FallBack;
-    [SerializeField] private AudioClip[] EnemyOutOfRange;
-
-    [SerializeField] private AudioClip[] KillConfirmed;
-    [SerializeField] private AudioClip[] EasyKill;
+    [SerializeField] public AudioClip[] EnemyOutOfRange;
+    [SerializeField] public AudioClip[] KillConfirmed;
+    [SerializeField] public AudioClip[] EasyKill;
 
     private void Awake()
     {
-        if(!Instance)
+        if (!Instance)
         {
             Instance = this;
         }
@@ -33,9 +33,19 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(this);
         }
+        _audioSource = GetComponent<AudioSource>();
     }
 
-    internal AudioClip RandomClipFromArray(ref AudioClip[] clips)
+    public void PlayAudio(AudioClip audioClip)
+    {
+        if (!_audioSource.isPlaying)
+        {
+            _audioSource.clip = audioClip;
+            _audioSource.Play();
+        }
+    }
+
+    public AudioClip RandomPhraseFromArray(ref AudioClip[] clips)
     {
         return clips[Random.Range(0, clips.Length)];
     }

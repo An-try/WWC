@@ -34,6 +34,6 @@ public class TwinLaserTurret : Turret
 
         _currentCooldown = _cooldown + hitDuration; // Add a cooldown to this turret
 
-        GetComponent<AudioSource>().Play(); // Play an shoot sound
+        _shootingSound.Play(); // Play an shoot sound
     }
 }

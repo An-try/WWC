@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public abstract class Turret : MonoBehaviour
 {
-    [SerializeField] private AudioClip ShootingSound;
+    [SerializeField] private protected AudioSource _shootingSound;
 
     //public Item item; // Item for this turret
 
@@ -31,6 +31,11 @@ public abstract class Turret : MonoBehaviour
     [Range(0.0f, 90.0f)] private protected float _depression; // Maximum turn down in degrees
 
     private protected bool _turretAI; // If the turret is controlled by AI
+
+    private protected virtual void Awake()
+    {
+        _shootingSound = GetComponent<AudioSource>();
+    }
 
     private protected abstract void Shoot();
 
@@ -59,10 +64,8 @@ public abstract class Turret : MonoBehaviour
         switch (transform.tag)
         {
             case "Player":  // If this turret is on a player ship
-                // Subscribe to the delegate that called when auto fire changes in the PlayerMovement script
-                //PlayerMovement.instance.onAutoFireChanged += ChangeTurretAutoFire;
-                //turretAI = PlayerMovement.instance.autoFire; // Set if the turret is controlled by AI
-                _turretAI = false;
+                _turretAI = Player.Instance.AutoFire; // Set if the turret is controlled by AI
+                Player.Instance.autoFireChangeEventHandler += ChangeTurretAutoFire;
                 //TargetsList = Manager.Enemies; // Set enemies as targets for this turret
                 break;
             case "Ally": // If this turret is on an ally ship
