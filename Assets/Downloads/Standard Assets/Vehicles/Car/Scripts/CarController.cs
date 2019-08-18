@@ -51,9 +51,9 @@ namespace UnityStandardAssets.Vehicles.Car
 
         public bool Skidding { get; private set; }
         public float BrakeInput { get; private set; }
-        public float CurrentSteerAngle{ get { return m_SteerAngle; }}
-        public float CurrentSpeed{ get { return m_Rigidbody.velocity.magnitude*2.23693629f; }}
-        public float MaxSpeed{get { return m_Topspeed; }}
+        public float CurrentSteerAngle { get { return m_SteerAngle; } }
+        public float CurrentSpeed { get { return m_Rigidbody.velocity.magnitude * 2.23693629f; } }
+        public float MaxSpeed { get { return m_Topspeed; } }
         public float Revs { get; private set; }
         public float AccelInput { get; private set; }
 
@@ -83,7 +83,6 @@ namespace UnityStandardAssets.Vehicles.Car
             m_Rigidbody = GetComponent<Rigidbody>();
             m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl*m_FullTorqueOverAllWheels);
         }
-
 
         private void GearChanging()
         {
@@ -172,7 +171,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
             //Set the steer on the front wheels.
             //Assuming that wheels 0 and 1 are the front wheels.
-            m_SteerAngle = steering*m_MaximumSteerAngle;
+            m_SteerAngle = steering * m_MaximumSteerAngle;
             m_WheelColliders[0].steerAngle = m_SteerAngle;
             m_WheelColliders[1].steerAngle = m_SteerAngle;
 
@@ -194,7 +193,6 @@ namespace UnityStandardAssets.Vehicles.Car
                     m_WheelColliders[5].brakeTorque = hbTorque;
                 }
             }
-
 
             CalculateRevs();
             GearChanging();

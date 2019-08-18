@@ -760,14 +760,7 @@ MonoBehaviour:
   fragmentDefence: 10
   maxSpeed: 100
   transmission: 0
-  thrustForce: 1
-  strafeForce: 200
-  rotationForce: 500
-  maxRotationSpeed: 0.1
-  stopForce: 2
-  autoStopForce: 1
-  currentStopForce: 0
-  shipFiresAmount: 0
+  vehicleFiresAmount: 0
   TargetCameraRotatesAround: {fileID: 6684625183803712031}
   ShipBurningParticles: {fileID: 0}
   LaserTurretPlaces:

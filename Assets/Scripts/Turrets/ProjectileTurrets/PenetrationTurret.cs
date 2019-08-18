@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 
-public class PlasmaTurret : Turret
+public class PenetrationTurret : Turret
 {
     public GameObject ProjectilePrefab;
-    public GameObject RightShootPlace;
-    public GameObject LeftShootPlace;
 
     private float bulletForce;
     private float turretScatter;
@@ -15,7 +13,7 @@ public class PlasmaTurret : Turret
 
         _turnRate = 30f;
         _turretRange = 50000f;
-        _cooldown = 3f;
+        _cooldown = 0.5f;
         _currentCooldown = _cooldown;
 
         _rightTraverse = 180f;
@@ -25,22 +23,10 @@ public class PlasmaTurret : Turret
 
         bulletForce = 50000f;
         turretScatter = 0.001f;
-
-        ShootPlace = RightShootPlace;
     }
 
     private protected override void Shoot()
     {
-        // Change shoot place(right or left in turn)
-        if (ShootPlace == RightShootPlace)
-        {
-            ShootPlace = LeftShootPlace;
-        }
-        else
-        {
-            ShootPlace = RightShootPlace;
-        }
-
         // Scatter while firing
         Vector3 scatter = new Vector3(Random.Range(-turretScatter, turretScatter),
                                       Random.Range(-turretScatter, turretScatter),

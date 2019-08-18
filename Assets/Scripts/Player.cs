@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    internal bool IsAlive;
+    internal bool IsAlive = true;
 
     internal GameObject CurrentAxis;
     internal GameObject CurrentCabin;

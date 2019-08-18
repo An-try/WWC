@@ -129,8 +129,8 @@ public class Manager : MonoBehaviour
     {
         //currentFPS = (int)(1f / Time.unscaledDeltaTime); // Get current frames per second
 
-        if (Time.timeScale == 1) // If game is not paused
-        {
+        //if (Time.timeScale == 1) // If game is not paused
+        //{
             // Open or close player ship inventory
             //if (Input.GetKeyDown(KeyCode.I) && PlayerShip)
             //{
@@ -159,7 +159,7 @@ public class Manager : MonoBehaviour
             //{
             //    VoiceShipControl.instance.RunKeywordRecognizer(); // Run or disable keyword recognizer
             //}
-        }
+        //}
 
         // If the left "Alt" key is pressed
         if (Input.GetKeyDown(KeyCode.LeftAlt))
@@ -169,21 +169,21 @@ public class Manager : MonoBehaviour
 
         // If the "Escape" key is pressed
         // Pause the game and open pause menu
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
             //PauseMenu.instance.PauseMenuInteraction(); // Enable or disable pause menu
-        }
+        //}
     }
 
     /// <summary>
     /// Updates info about current FPS on the FPSInfo game object.
     /// </summary>
-    private void UpdateCurrentFPSInfo()
-    {
+    //private void UpdateCurrentFPSInfo()
+    //{
         // TODO : WWC
         // Update current FPS on the text component of the FPSinfo object
         //FPSInfo.GetComponent<Text>().text = "<color=magenta>FPS: " + currentFPS + "</color>" + "\nPress \"P\" for help";
-    }
+    //}
 
     // If the current target info camera has destroyed, spawn a new target info camera and parent it to the player ship
     //private void SpawnNewTargetInfoCamera()
