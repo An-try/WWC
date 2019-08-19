@@ -19,17 +19,13 @@ public class Manager : MonoBehaviour
 
     // TODO: Make an object pooling
 
-    internal static Manager Instance; // Singleton for this script
+    public static Manager Instance; // Singleton for this script
 
     private int currentFPS; // Current frames per second
 
     // Delegate called when player ship spawned
     public delegate void OnPlayerAssigned();
     public OnPlayerAssigned onPlayerAssigned;
-
-    // Delegate called when new selected target assigned
-    public delegate void OnCurrentSelectedTargetAssigned();
-    public OnCurrentSelectedTargetAssigned onCurrentSelectedTargetAssigned;
 
     // Prefab of any ship in the game
     // There is only one kind of ship in the game
@@ -49,19 +45,12 @@ public class Manager : MonoBehaviour
     public GameObject GameInfoPanel;
     public GameObject InventoryPanel;
     public GameObject HelpPanel; // Panel that contains player input help and other help information
-    
-    // TODO: Remake target camera algorithm
-    public GameObject TargetInfoCameraPrefab; // Camera prefab that shows current selected target
-    public GameObject CurrentTargetInfoCamera; // Camera that shows current selected target
-    public GameObject CurrentSelectedTarget = null;
-    public GameObject LastSelectedTarget = null;
 
     public List<GameObject> GameCameras = new List<GameObject>(); // List with all cameras that tagged "MainCamera" on the scene 
     public List<GameObject> UIPanels = new List<GameObject>(); // List with all UI panels that tagged "UIPanel" on the scene
 
-    // Lists with all current existing Allies and Enemies on the scene
-    public static List<GameObject> Enemies = new List<GameObject>();
-    public static List<GameObject> Allies = new List<GameObject>();
+    // Lists with all tags of the live objects in the game
+    public List<string> AllGameTags = new List<string>() { "Player", "Ally", "Enemy" };
 
     private void Awake() // Awake is called when the script instance is being loaded
     {
@@ -251,19 +240,17 @@ public class Manager : MonoBehaviour
         // Set an camera target game object
         //PlayerShipCameraController.instance.TargetCameraRotatesAround = PlayerShip.GetComponent<Ship>().TargetCameraRotatesAround;
 
-        Allies.Add(Player); // Add a player ship to allies list
-
         onPlayerAssigned?.Invoke(); // Invoke a delegate if there is any signature on it
     }
 
     private void ActionsForAllyShipSpawn(GameObject Ship)
     {
-        Allies.Add(Ship); // Add a ally ship to allies list
+
     }
 
     private void ActionsForEnemyShipSpawn(GameObject Ship)
     {
-        Enemies.Add(Ship); // Add an emeny ship to enemies list
+
     }
     
     //private void ChangeGameCamera() // Activate new camera and deactivate old camera

@@ -5,6 +5,6 @@ using UnityEngine.UI;
 
 public class VehiclePartUI : MonoBehaviour
 {
-    [SerializeField] internal Image PartImage;
-    [SerializeField] internal Text PartInfo;
+    [SerializeField] public Image PartImage;
+    [SerializeField] public Text PartInfo;
 }

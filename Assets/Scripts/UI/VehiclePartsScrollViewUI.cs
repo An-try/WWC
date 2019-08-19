@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class VehiclePartsScrollViewUI : MonoBehaviour
 {
-    [SerializeField] internal Transform VehiclePartsListUI;
+    [SerializeField] public Transform VehiclePartsListUI;
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
@@ -19,6 +20,13 @@ public class InputManager : MonoBehaviour
             Player.Instance.autoFireChangeEventHandler?.Invoke(Player.Instance.AutoFire);
 
             _audioManager.PlayAudio(_audioManager.RandomPhraseFromArray(ref _audioManager.Okay));
+
+            StartCoroutine(PlayAudio(2f));
         }
+    }
+
+    private IEnumerator PlayAudio(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
     }
 }

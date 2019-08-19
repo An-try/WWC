@@ -4,25 +4,26 @@ using UnityEngine.EventSystems;
 
 public abstract class Turret : MonoBehaviour
 {
-    [SerializeField] private protected AudioSource _shootingSound;
+    private protected AudioSource _shootingSound;
 
     //public Item item; // Item for this turret
 
-    public List<GameObject> TargetsList; // Targets for this turret
-    public GameObject NearestTargetWithParameter;
+    private protected GameObject _opportuneTargetWithParameter;
+    private Methods.SearchParameter _targetSearchParameter = Methods.SearchParameter.Distance;
+    private List<string> _targetTags = new List<string>();
 
-    public GameObject TurretBase; // Base platform of the turret that rotates horizontally
-    public GameObject TurretCannons; // Cannons of the turret that totates vertically
+    [SerializeField] private GameObject _turretBase; // Base platform of the turret that rotates horizontally
+    [SerializeField] private GameObject _turretCannons; // Cannons of the turret that totates vertically
 
-    public GameObject ShootPlace;
-    public GameObject ShootAnimationPrefab;
+    [SerializeField] private protected GameObject _shootPlace;
+    [SerializeField] private protected GameObject _shootAnimation;
     //public GameObject HitHole;
 
-    public Vector3 AimPoint; // The point that the turret should look at
+    private protected Vector3 _aimPoint; // The point that the turret should look at
 
     private protected float _turnRate; // Turret turning speed
     private protected float _turretRange;
-    [SerializeField] private protected float _cooldown;
+    private protected float _defaultCooldown;
     private protected float _currentCooldown;
 
     [Range(0.0f, 180.0f)] private protected float _rightTraverse; // Maximum right turn in degrees
@@ -36,8 +37,6 @@ public abstract class Turret : MonoBehaviour
     {
         _shootingSound = GetComponent<AudioSource>();
     }
-
-    private protected abstract void Shoot();
 
     private void Start() // Start is called on the frame when a script is enabled just before any of the Update methods are called the first time
     {
@@ -58,38 +57,54 @@ public abstract class Turret : MonoBehaviour
         CooldownDecrease();
     }
 
-    public virtual void SetTurretParameters()
+    private protected abstract void Shoot();
+
+    private protected virtual void SetTurretParameters()
     {
+        _targetTags.AddRange(Manager.Instance.AllGameTags); // Set enemies as targets for this turret
+
         // Check this turret tag
         switch (transform.tag)
         {
             case "Player":  // If this turret is on a player ship
                 _turretAI = Player.Instance.AutoFire; // Set if the turret is controlled by AI
                 Player.Instance.autoFireChangeEventHandler += ChangeTurretAutoFire;
+                _targetTags.Remove("Player");
                 //TargetsList = Manager.Enemies; // Set enemies as targets for this turret
                 break;
             case "Ally": // If this turret is on an ally ship
                 _turretAI = true; // Set the turret under AI control
-                TargetsList = Manager.Enemies; // Set enemies as targets for this turret
+                _targetTags.Remove("Player");
+                _targetTags.Remove("Ally");
                 break;
             case "Enemy": // If this turret is on an enemy ship
                 _turretAI = true; // Set the turret under AI control
-                TargetsList = Manager.Allies; // Set allies as targets for this turret
+                _targetTags.Remove("Enemy");
                 break;
             default:
                 _turretAI = true;
+                _targetTags.Clear();
+                Debug.LogError("Cannon tag <b>\"" + gameObject.tag + "\"</b> is not valid. Cannon name: <b>\"" + gameObject.name +
+                    "\"</b>. Cannon world position: <b>" + transform.position + "</b>. <i>This cannon will not shoot</i>.");
                 break;
         }
+
+        InvokeRepeating("SearchTheOpportuneTargetByParameter", 0, 1);
+    }
+
+    private void SearchTheOpportuneTargetByParameter()
+    {
+        _opportuneTargetWithParameter = Methods.SearchOpportuneTargetByParameter(transform, _targetTags, _targetSearchParameter);
     }
 
     // Set the turret AI. This method executes by delegate of PlayerMovement script
-    public void ChangeTurretAutoFire(bool turretAutoFire)
+    private void ChangeTurretAutoFire(bool turretAutoFire)
     {
         _turretAI = turretAutoFire;
     }
 
     // Decrease turret cooldown each fixed update
-    public void CooldownDecrease()
+    private void CooldownDecrease()
     {
         if (_currentCooldown >= 0)
         {
@@ -97,7 +112,7 @@ public abstract class Turret : MonoBehaviour
         }
     }
 
-    public bool CooldownIsZero()
+    private bool CooldownIsZero()
     {
         if (_currentCooldown <= 0)
         {
@@ -107,13 +122,11 @@ public abstract class Turret : MonoBehaviour
     }
 
     // Method executes when turret AI is enabled
-    public void AutomaticTurretControl()
+    private void AutomaticTurretControl()
     {
-        SearchTheNearestTargetWithParameter();
-
-        if (NearestTargetWithParameter != null) // If there is any target
+        if (_opportuneTargetWithParameter) // If there is any target
         {
-            AimPoint = NearestTargetWithParameter.transform.position; // Set a target position as an aim point
+            _aimPoint = _opportuneTargetWithParameter.transform.position; // Set a target position as an aim point
 
             RotateBase(); // Totate base of the turret to the aim point
             RotateCannons(); // Totate cannons of the turret to the aim point
@@ -131,9 +144,9 @@ public abstract class Turret : MonoBehaviour
     }
 
     // Method executes when turret AI is disabled
-    public void ManualTurretControl()
+    private void ManualTurretControl()
     {
-        AimPoint = PlayerCameraController.instance.cameraLookingPoint; // Set the point on which camera is looking as an aim point
+        _aimPoint = PlayerCameraController.instance.cameraLookingPoint; // Set the point on which camera is looking as an aim point
 
         RotateBase(); // Totate base of the turret to the aim point
         RotateCannons(); // Totate cannons of the turret to the aim point
@@ -145,38 +158,10 @@ public abstract class Turret : MonoBehaviour
         }
     }
 
-    public void SearchTheNearestTargetWithParameter() // TODO: Transmit a parameter by which search a target
-    {
-        float distanceToNearestTarget = Mathf.Infinity; // Set distance to nearest target as infinity
-        GameObject nearestTarget = null; // Set nearest target as null game object
-
-        for (int targetIndex = 0; targetIndex < TargetsList.Count; targetIndex++) // Pass all targets in targets list
-        {
-            if (TargetsList[targetIndex] != null) // If target exists
-            {
-                // Get distance between this turret and target
-                float distanceToTarget = Vector3.Distance(transform.position, TargetsList[targetIndex].transform.position);
-
-                if (distanceToTarget < distanceToNearestTarget) // If this target is closer than previous nearest target
-                {
-                    distanceToNearestTarget = distanceToTarget; // Set new distance to the nearest target
-                    nearestTarget = TargetsList[targetIndex]; // Set new nearest target
-                }
-            }
-            else // If target does not exist
-            {
-                TargetsList.RemoveAt(targetIndex); // Remove target from targets list
-            }
-        }
-
-        // Set the nearest target if it was found. Otherwise, the nearest target will be null
-        NearestTargetWithParameter = nearestTarget;
-    }
-
-    public void RotateBase()
+    private void RotateBase()
     {
         // Get local position of aim point in relative to this turret
-        Vector3 localTargetPos = transform.InverseTransformPoint(AimPoint);
+        Vector3 localTargetPos = transform.InverseTransformPoint(_aimPoint);
         localTargetPos.y = 0f; // Put the aiming point at the same height with this tower
 
         Vector3 clampedLocalVector2Target = localTargetPos; // New point to rotate with clamped rotate traverses
@@ -194,15 +179,15 @@ public abstract class Turret : MonoBehaviour
 
         Quaternion rotationGoal = Quaternion.LookRotation(clampedLocalVector2Target); // Create a new rotation that looking at new point
         // Rotates current turret to the new quaternion
-        Quaternion newRotation = Quaternion.RotateTowards(TurretBase.transform.localRotation, rotationGoal, _turnRate * Time.fixedDeltaTime);
+        Quaternion newRotation = Quaternion.RotateTowards(_turretBase.transform.localRotation, rotationGoal, _turnRate * Time.fixedDeltaTime);
 
-        TurretBase.transform.localRotation = newRotation; // Apply intermediate rotation to the turret
+        _turretBase.transform.localRotation = newRotation; // Apply intermediate rotation to the turret
     }
 
-    public void RotateCannons()
+    private void RotateCannons()
     {
         // Get local position of aim point in relative to this turret
-        Vector3 localTargetPos = TurretBase.transform.InverseTransformPoint(AimPoint);
+        Vector3 localTargetPos = _turretBase.transform.InverseTransformPoint(_aimPoint);
         localTargetPos.x = 0f; // Put the aiming point at the same vertical with this tower
 
         Vector3 clampedLocalVec2Target = localTargetPos; // New point to rotate with clamped rotate traverses
@@ -220,25 +205,25 @@ public abstract class Turret : MonoBehaviour
 
         Quaternion rotationGoal = Quaternion.LookRotation(clampedLocalVec2Target); // Create a new rotation that looking at new point
         // Rotates current turret to the new quaternion
-        Quaternion newRotation = Quaternion.RotateTowards(TurretCannons.transform.localRotation, rotationGoal, _turnRate * Time.fixedDeltaTime);
+        Quaternion newRotation = Quaternion.RotateTowards(_turretCannons.transform.localRotation, rotationGoal, _turnRate * Time.fixedDeltaTime);
 
-        TurretCannons.transform.localRotation = newRotation; // Apply intermediate rotation to the turret
+        _turretCannons.transform.localRotation = newRotation; // Apply intermediate rotation to the turret
     }
 
-    public void RotateToDefault()
+    private void RotateToDefault()
     {
         // Set new intermediate rotation of base and cannons to default rotation
         Quaternion newBaseRotation =
-            Quaternion.RotateTowards(TurretBase.transform.localRotation, Quaternion.identity, _turnRate * Time.fixedDeltaTime);
+            Quaternion.RotateTowards(_turretBase.transform.localRotation, Quaternion.identity, _turnRate * Time.fixedDeltaTime);
         Quaternion newCannonRotation =
-            Quaternion.RotateTowards(TurretCannons.transform.localRotation, Quaternion.identity, 2.0f * _turnRate * Time.fixedDeltaTime);
+            Quaternion.RotateTowards(_turretCannons.transform.localRotation, Quaternion.identity, 2.0f * _turnRate * Time.fixedDeltaTime);
 
         // Apply intermediate rotation
-        TurretBase.transform.localRotation = newBaseRotation;
-        TurretCannons.transform.localRotation = newCannonRotation;
+        _turretBase.transform.localRotation = newBaseRotation;
+        _turretCannons.transform.localRotation = newCannonRotation;
     }
 
-    public virtual bool AimedAtEnemy()
+    private protected virtual bool AimedAtEnemy()
     {
         // Select specific layers by shifting the bits. These layers will be ignored by the turret raycast
         // Layer 8 is a bullet and 9 is a missile
@@ -246,12 +231,12 @@ public abstract class Turret : MonoBehaviour
         layerMask = ~layerMask; // Invert these layers. So raycast will ignore bullets and missiles
 
         // Create an outgoing ray from cannons with turret range lenght
-        Ray aimingRay = new Ray(TurretCannons.transform.position, TurretCannons.transform.forward * _turretRange);
+        Ray aimingRay = new Ray(_turretCannons.transform.position, _turretCannons.transform.forward * _turretRange);
 
         // If the turret is targeting an object except bullets and rockets (determined by layerMask)
         if (Physics.Raycast(aimingRay, out RaycastHit hit, _turretRange, layerMask))
         {
-            if (hit.collider.transform.root.gameObject == NearestTargetWithParameter) // If aiming on current nearest target
+            if (hit.collider.transform.root.gameObject == _opportuneTargetWithParameter) // If aiming on current nearest target
             {
                 return true; // Aimed at the enemy
             }
@@ -267,10 +252,10 @@ public abstract class Turret : MonoBehaviour
     }
 
     // If the turret aimed at the ship on which it is attached
-    public bool AimedAtOwner()
+    private bool AimedAtOwner()
     {
         // Create an outgoing ray from cannons with turret range lenght
-        Ray aimingRay = new Ray(TurretCannons.transform.position, TurretCannons.transform.forward * _turretRange);
+        Ray aimingRay = new Ray(_turretCannons.transform.position, _turretCannons.transform.forward * _turretRange);
 
         if (Physics.Raycast(aimingRay, out RaycastHit hit, _turretRange)) // If turret aiming at some object
         {

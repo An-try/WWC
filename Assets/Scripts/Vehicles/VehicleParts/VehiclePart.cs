@@ -11,18 +11,18 @@ public abstract class VehiclePart : MonoBehaviour
     private protected float _penetratingProtection;
     private protected float _explosiveProtection;
 
-    [SerializeField] internal Sprite VehiclePartImage;
+    [SerializeField] public Sprite VehiclePartImage;
 
     [SerializeField] private Material[] _defaultMaterials;
     [SerializeField] private MeshRenderer[] _partRenderers;
 
-    internal void Awake()
+    public void Awake()
     {
         _name = "Vehicle part";
         _durability = 999999;
     }
 
-    internal Material PartMaterial
+    public Material PartMaterial
     {
         set
         {
@@ -33,7 +33,7 @@ public abstract class VehiclePart : MonoBehaviour
         }
     }
 
-    internal void SetDefaultMaterials()
+    public void SetDefaultMaterials()
     {
         for (int i = 0; i < _partRenderers.Length; i++)
         {
@@ -41,7 +41,7 @@ public abstract class VehiclePart : MonoBehaviour
         }
     }
 
-    internal string Info
+    public string Info
     {
         get
         {

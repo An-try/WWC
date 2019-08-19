@@ -2,60 +2,73 @@
 
 public class PlasmaTurret : Turret
 {
-    public GameObject ProjectilePrefab;
-    public GameObject RightShootPlace;
-    public GameObject LeftShootPlace;
+    [SerializeField] private GameObject _projectilePrefab;
+    [SerializeField] private GameObject _rightShootPlace;
+    [SerializeField] private GameObject _leftShootPlace;
 
-    private float bulletForce;
-    private float turretScatter;
+    private float _bulletForce;
+    private float _turretScatter;
 
-    public override void SetTurretParameters()
+    private protected override void SetTurretParameters()
     {
         base.SetTurretParameters();
 
         _turnRate = 30f;
         _turretRange = 50000f;
-        _cooldown = 3f;
-        _currentCooldown = _cooldown;
+        _defaultCooldown = 1f;
+        _currentCooldown = _defaultCooldown;
 
         _rightTraverse = 180f;
         _leftTraverse = 180f;
-        _elevation = 40f;
+        _elevation = 80f;
         _depression = 10f;
 
-        bulletForce = 50000f;
-        turretScatter = 0.001f;
+        _bulletForce = 50000f;
+        _turretScatter = 0.001f;
 
-        ShootPlace = RightShootPlace;
+        //_shootPlace = _rightShootPlace;
     }
 
     private protected override void Shoot()
     {
-        // Change shoot place(right or left in turn)
-        if (ShootPlace == RightShootPlace)
-        {
-            ShootPlace = LeftShootPlace;
-        }
-        else
-        {
-            ShootPlace = RightShootPlace;
-        }
 
-        // Scatter while firing
-        Vector3 scatter = new Vector3(Random.Range(-turretScatter, turretScatter),
-                                      Random.Range(-turretScatter, turretScatter),
-                                      Random.Range(-turretScatter, turretScatter));
 
-        // Creating shoot animation with position and rotation of the shoot place. Also parent shoot animation to the shoot place
-        GameObject shootAnimation = Instantiate(ShootAnimationPrefab, ShootPlace.transform.position, ShootPlace.transform.rotation, ShootPlace.transform);
-        Destroy(shootAnimation.gameObject, shootAnimation.GetComponent<ParticleSystem>().main.duration);
+
+        ///
+        //// Change shoot place(right or left in turn)
+        //if (_shootPlace == _rightShootPlace)
+        //{
+        //    _shootPlace = _leftShootPlace;
+        //}
+        //else
+        //{
+        //    _shootPlace = _rightShootPlace;
+        //}
+
+        //// Scatter while firing
+        //Vector3 scatter = new Vector3(Random.Range(-_turretScatter, _turretScatter),
+        //                              Random.Range(-_turretScatter, _turretScatter),
+        //                              Random.Range(-_turretScatter, _turretScatter));
+        ///
+
+
+
+        // Play shooting animation
+        if (_shootAnimation.GetComponent<ParticleSystem>())
+        {
+            _shootAnimation.GetComponent<ParticleSystem>().Play();
+        }
+        foreach (ParticleSystem particleSystem in _shootAnimation.GetComponentsInChildren<ParticleSystem>())
+        {
+            particleSystem.Play();
+        }
 
         // Creating bullet with position and rotation of the shoot place
-        GameObject bullet = Instantiate(ProjectilePrefab, ShootPlace.transform.position, ShootPlace.transform.rotation);
+        GameObject bullet = Instantiate(_projectilePrefab, _shootPlace.transform.position, _shootPlace.transform.rotation);
         // Add force to the bullet so it will fly directly
-        bullet.GetComponent<Rigidbody>().AddForce((ShootPlace.transform.forward + scatter) * bulletForce);
+        bullet.GetComponent<Rigidbody>().AddForce((_shootPlace.transform.forward/* + scatter*/) * _bulletForce);
 
-        _currentCooldown = _cooldown; // Add a cooldown to this turret
+        _currentCooldown = _defaultCooldown; // Add a cooldown to this turret
 
         _shootingSound.Play(); // Play an shoot sound
     }

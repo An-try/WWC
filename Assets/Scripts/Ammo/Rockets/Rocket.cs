@@ -5,7 +5,9 @@ public abstract class Rocket : Ammo
 {
     public float HP = 0f; // Health of the rocket
 
-    private GameObject Target; // The target that this rocket should pursue
+    private GameObject _opportuneTargetWithParameter;
+    private Methods.SearchParameter _targetSearchParameter = Methods.SearchParameter.Distance;
+    private List<string> _targetTags = new List<string>();
 
     private Rigidbody RocketRigidbody;
 
@@ -15,37 +17,17 @@ public abstract class Rocket : Ammo
     public GameObject ExplosionPrefab; // Explosion effect when rocket hit something
     public GameObject ExplosionSmokePrefab; // Smoke that takes off from a rocket
 
-    private List<GameObject> TargetsList; // List that contains
-
     public virtual void Awake() // Awake is called when the script instance is being loaded
     {
+        RocketRigidbody = GetComponent<Rigidbody>(); // Get the rigidbody attached to this game object
+
         rocketWarhead = new RocketWarhead();
         rocketEngine = new RocketEngine();
     }
 
     private void Start() // Start is called on the frame when a script is enabled just before any of the Update methods are called the first time
     {
-        RocketRigidbody = transform.GetComponent<Rigidbody>(); // Get the rigidbody attached to this game object
-
-        // Set the target list based on this rocket tag
-        switch (transform.tag)
-        {
-            case "Player":
-                TargetsList = Manager.Enemies;
-                break;
-            case "Ally":
-                TargetsList = Manager.Enemies;
-                break;
-            case "Enemy":
-                TargetsList = Manager.Allies;
-                break;
-            default:
-                break;
-        }
-
-        InvokeRepeating("SearchTheNearestTarget", 0f, 1f); // Search the nearest target each period of time
-
-        Destroy(gameObject, 60f); // Destroy the rocket after some time
+        SetRocketParameters();
     }
 
     private void FixedUpdate() // FixedUpdate is called at a fixed framerate frequency
@@ -66,30 +48,39 @@ public abstract class Rocket : Ammo
         ObstaclesAvoidance(); // Avoid obstacles and move to the target
     }
 
-    private void SearchTheNearestTarget()
+    private void SetRocketParameters()
     {
-        float distanceToNearestTarget = Mathf.Infinity;
-        GameObject nearestTarget = null;
-        
-        for (int targetIndex = 0; targetIndex < TargetsList.Count; targetIndex++) // Check all targets in targets list
-        {
-            if (TargetsList[targetIndex] != null) // If current target exists
-            {
-                float distanceToTarget = Vector3.Distance(transform.position, TargetsList[targetIndex].transform.position);
+        _targetTags.AddRange(Manager.Instance.AllGameTags); // Set enemies as targets for this turret
 
-                if (distanceToTarget < distanceToNearestTarget) // If current target if closer than previous
-                {
-                    distanceToNearestTarget = distanceToTarget; // Set the distance to the new target
-                    nearestTarget = TargetsList[targetIndex]; // Set the new target fron targets list
-                }
-            }
-            else // If the current target doesn't exists
-            {
-                TargetsList.RemoveAt(targetIndex); // Remove it from the target list
-            }
+        // Check this turret tag
+        switch (transform.tag)
+        {
+            case "Player":  // If this turret is on a player ship
+                _targetTags.Remove("Player");
+                //TargetsList = Manager.Enemies; // Set enemies as targets for this turret
+                break;
+            case "Ally": // If this turret is on an ally ship
+                _targetTags.Remove("Player");
+                _targetTags.Remove("Ally");
+                break;
+            case "Enemy": // If this turret is on an enemy ship
+                _targetTags.Remove("Enemy");
+                break;
+            default:
+                _targetTags.Clear();
+                Debug.LogError("Rocket tag <b>\"" + gameObject.tag + "\"</b> is not valid. Rocket name: <b>" + gameObject.name +
+                    ".</b> Rocket world position: <b>" + transform.position + ".</b> <i>This rocket will not be aimed at any target</i>.");
+                break;
         }
 
-        Target = nearestTarget; // Set the new target
+        InvokeRepeating("SearchTheOpportuneTargetByParameter", 0, 1); // Search the nearest target each period of time
+
+        Destroy(gameObject, 60f); // Destroy the rocket after some time
+    }
+
+    private void SearchTheOpportuneTargetByParameter()
+    {
+        _opportuneTargetWithParameter = Methods.SearchOpportuneTargetByParameter(transform, _targetTags, _targetSearchParameter);
     }
 
     private void ObstaclesAvoidance() // TODO: Improve the obstacles avoidance algorithm
@@ -136,7 +127,7 @@ public abstract class Rocket : Ammo
             Physics.Raycast(rayForwardThird, out hit, rayLength / 2) || Physics.Raycast(rayForwardFourth, out hit, rayLength / 2))
         {
             // If forward rays of this missile does not cross current target of this missile avoid this object
-            if (hit.collider.transform.root.gameObject != Target)
+            if (hit.collider.transform.root.gameObject != _opportuneTargetWithParameter)
             {
                 // Try to avoid by rotating to the new direction that have no obstacles
                 if (!Physics.Raycast(rayUp, out hit, rayLength)) // If the upper ray hits nothing
@@ -189,9 +180,9 @@ public abstract class Rocket : Ammo
 
     private void RotateToTarget(bool moveToTarget, Vector3 newAvoidingPosition) // Move to the new position
     {
-        if (Target != null && moveToTarget) // If target exists and moving to target is allow
+        if (_opportuneTargetWithParameter && moveToTarget) // If target exists and moving to target is allow
         {
-            Quaternion targetRotation = Quaternion.LookRotation(Target.transform.position - transform.position); // Set new look rotation based on target
+            Quaternion targetRotation = Quaternion.LookRotation(_opportuneTargetWithParameter.transform.position - transform.position); // Set new look rotation based on target
             RocketRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, rocketEngine.turnRate)); // Apply new rotation
         }
         else

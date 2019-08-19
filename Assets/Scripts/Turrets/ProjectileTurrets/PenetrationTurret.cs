@@ -15,14 +15,14 @@ public class PenetrationTurret : Turret
         _animator = GetComponent<Animator>();
     }
 
-    public override void SetTurretParameters()
+    private protected override void SetTurretParameters()
     {
         base.SetTurretParameters();
 
         _turnRate = 30f;
         _turretRange = 50000f;
-        _cooldown = 1f;
-        _currentCooldown = _cooldown;
+        _defaultCooldown = 1f;
+        _currentCooldown = _defaultCooldown;
 
         _rightTraverse = 180f;
         _leftTraverse = 180f;
@@ -40,17 +40,22 @@ public class PenetrationTurret : Turret
                                       Random.Range(-turretScatter, turretScatter),
                                       Random.Range(-turretScatter, turretScatter));
 
-        // Creating shoot animation with position and rotation of the shoot place. Also parent shoot animation to the shoot place
-        GameObject shootAnimation = Instantiate(ShootAnimationPrefab, ShootPlace.transform.position, ShootPlace.transform.rotation, ShootPlace.transform);
-        shootAnimation.GetComponentInChildren<ParticleSystem>().Play();
-        Destroy(shootAnimation.gameObject, shootAnimation.GetComponentInChildren<ParticleSystem>().main.duration);
+        // Play shooting animation
+        if (_shootAnimation.GetComponent<ParticleSystem>())
+        {
+            _shootAnimation.GetComponent<ParticleSystem>().Play();
+        }
+        foreach (ParticleSystem particleSystem in _shootAnimation.GetComponentsInChildren<ParticleSystem>())
+        {
+            particleSystem.Play();
+        }
 
         // Creating bullet with position and rotation of the shoot place
-        GameObject bullet = Instantiate(_projectilePrefab, ShootPlace.transform.position, ShootPlace.transform.rotation);
+        GameObject bullet = Instantiate(_projectilePrefab, _shootPlace.transform.position, _shootPlace.transform.rotation);
         // Add force to the bullet so it will fly directly
-        bullet.GetComponent<Rigidbody>().AddForce((ShootPlace.transform.forward + scatter) * bulletForce);
+        bullet.GetComponent<Rigidbody>().AddForce((_shootPlace.transform.forward + scatter) * bulletForce);
 
-        _currentCooldown = _cooldown; // Add a cooldown to this turret
+        _currentCooldown = _defaultCooldown; // Add a cooldown to this turret
 
         _shootingSound.Play(); // Play an shoot sound
         _shootingSound.pitch = Random.Range(0.9f, 1.1f);

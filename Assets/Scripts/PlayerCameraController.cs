@@ -127,10 +127,6 @@ public class PlayerCameraController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, cameraAimRayLength)) // If this ray hits something
         {
             cameraLookingPoint = new Vector3(hit.point.x, hit.point.y, hit.point.z); // Set hit coordinates
-
-            Manager.Instance.CurrentSelectedTarget = hit.transform.gameObject; // Set current selected target as hitted game object
-            Manager.Instance.LastSelectedTarget = hit.transform.gameObject; // Set last selected target as hitted game object
-            Manager.Instance.onCurrentSelectedTargetAssigned?.Invoke();
         }
         else // If ray doesn't hit anything
         {
@@ -138,8 +134,6 @@ public class PlayerCameraController : MonoBehaviour
             cameraLookingPoint = new Vector3(transform.position.x + transform.forward.x * cameraAimRayLength,
                 transform.position.y + transform.forward.y * cameraAimRayLength,
                 transform.position.z + transform.forward.z * cameraAimRayLength);
-
-            Manager.Instance.CurrentSelectedTarget = null; // Clear current selected target
         }
     }
 }

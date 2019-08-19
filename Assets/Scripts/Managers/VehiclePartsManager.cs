@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class VehiclePartsManager : MonoBehaviour
 {
-    internal static VehiclePartsManager Instance;
-    
-    internal List<GameObject> AllAxes = new List<GameObject>();
-    internal List<GameObject> AllCabins = new List<GameObject>();
-    internal List<GameObject> AllCargoes = new List<GameObject>();
+    public static VehiclePartsManager Instance;
+
+    public List<GameObject> AllAxes = new List<GameObject>();
+    public List<GameObject> AllCabins = new List<GameObject>();
+    public List<GameObject> AllCargoes = new List<GameObject>();
 
     [SerializeField] private List<GameObject> _militarySmallAxes;
     [SerializeField] private List<GameObject> _militaryMediumAxes;
@@ -69,7 +69,7 @@ public class VehiclePartsManager : MonoBehaviour
     /// </summary>
     /// <param name="index"></param>
     /// <returns></returns>
-    internal List<GameObject> VehicleParts(int index)
+    public List<GameObject> VehicleParts(int index)
     {
         ClearAllVehiclePartsLists();
         AddVehiclePartsToLists();

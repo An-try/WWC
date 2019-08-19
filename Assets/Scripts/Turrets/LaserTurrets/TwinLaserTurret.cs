@@ -2,19 +2,19 @@
 
 public class TwinLaserTurret : Turret
 {
-    public GameObject RightLaserBeam;
-    public GameObject LeftLaserBeam;
+    [SerializeField] private GameObject RightLaserBeam;
+    [SerializeField] private GameObject LeftLaserBeam;
     
-    public float hitDuration;
+    private float hitDuration;
 
-    public override void SetTurretParameters()
+    private protected override void SetTurretParameters()
     {
         base.SetTurretParameters();
 
         _turnRate = 30f;
         _turretRange = 50000f;
-        _cooldown = 0.1f;
-        _currentCooldown = _cooldown;
+        _defaultCooldown = 0.1f;
+        _currentCooldown = _defaultCooldown;
         
         _rightTraverse = 180f;
         _leftTraverse = 180f;
@@ -32,7 +32,7 @@ public class TwinLaserTurret : Turret
         LeftLaserBeam.GetComponent<Laser>().laserLength = _turretRange; // Set the laset lenght to the left laser beam
         LeftLaserBeam.GetComponent<Laser>().SetHitDuration(hitDuration); // Set the hit duration to the left laser beam
 
-        _currentCooldown = _cooldown + hitDuration; // Add a cooldown to this turret
+        _currentCooldown = _defaultCooldown + hitDuration; // Add a cooldown to this turret
 
         _shootingSound.Play(); // Play an shoot sound
     }

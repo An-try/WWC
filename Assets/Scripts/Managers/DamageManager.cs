@@ -33,7 +33,7 @@ public class DamageManager : MonoBehaviour
 
         Vehicle carScript = collision.gameObject.GetComponentInParent<Vehicle>(); // Get Ship script of hitted ship
         float totalDamage = kineticDamage - kineticDamage * carScript.kineticDefence / 100f; // Set total damage
-        carScript.Hp -= totalDamage; // Apply damage to ship
+        carScript.Durability -= totalDamage; // Apply damage to ship
     }
 
     public void DealLaserDamage(float laserDamage, RaycastHit hit)
@@ -45,7 +45,7 @@ public class DamageManager : MonoBehaviour
 
         Vehicle carScript = hit.transform.GetComponentInParent<Vehicle>(); // Get Ship script of hitted ship
         float totalDamage = laserDamage - laserDamage * carScript.laserDefence / 100f; // Set total damage
-        carScript.Hp -= totalDamage; // Apply damage to ship
+        carScript.Durability -= totalDamage; // Apply damage to ship
     }
 
     public void DealRocketDamage(Rocket rocket, Collision collision)
@@ -64,7 +64,7 @@ public class DamageManager : MonoBehaviour
 
         float totalDamage = kineticDamage + explosionDamage + fragmentDamage; // Set total damage
 
-        carScript.Hp -= totalDamage; // Apply damage to ship
+        carScript.Durability -= totalDamage; // Apply damage to ship
 
         // Start ship burning if the weapon has flame effect
         if (rocket.rocketWarhead.flameTime > 0) // If the weapon has flame time
@@ -83,7 +83,7 @@ public class DamageManager : MonoBehaviour
         {
             yield return new WaitForSeconds(flameTimeStep); // Wait for flame time
             float damage = (flameForce - flameForce * vehicle.flameDefence / 100f) * flameTimeStep;
-            vehicle.Hp -= damage; // Set damage including time step
+            vehicle.Durability -= damage; // Set damage including time step
             flameTime -= flameTimeStep; // Decrease the flame time
         }
 

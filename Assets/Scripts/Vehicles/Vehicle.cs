@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class Vehicle : MonoBehaviour
 {
-    internal float Hp; // Ship health points
+    public float Durability;
+    public float Armor;
+
 
     // Defence in percentage
     public float kineticDefence = 10f;
