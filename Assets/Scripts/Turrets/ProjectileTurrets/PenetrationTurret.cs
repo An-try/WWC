@@ -50,6 +50,9 @@ public class PenetrationTurret : Turret
             particleSystem.Play();
         }
 
+        // Do recoil force
+        transform.root.GetComponent<Rigidbody>().AddForce(_turretCannons.transform.forward * -50000);
+
         // Creating bullet with position and rotation of the shoot place
         GameObject bullet = Instantiate(_projectilePrefab, _shootPlace.transform.position, _shootPlace.transform.rotation);
         // Add force to the bullet so it will fly directly

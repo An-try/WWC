@@ -13,7 +13,7 @@ public abstract class Turret : MonoBehaviour
     private List<string> _targetTags = new List<string>();
 
     [SerializeField] private GameObject _turretBase; // Base platform of the turret that rotates horizontally
-    [SerializeField] private GameObject _turretCannons; // Cannons of the turret that totates vertically
+    [SerializeField] private protected GameObject _turretCannons; // Cannons of the turret that totates vertically
 
     [SerializeField] private protected GameObject _shootPlace;
     [SerializeField] private protected GameObject _shootAnimation;

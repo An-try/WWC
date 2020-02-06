@@ -628,12 +628,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &387543720 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6684625183803712031, guid: 520c96f50d000f143a010f5619751a9d,
-    type: 3}
-  m_PrefabInstance: {fileID: 1408703140}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &443790199
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +733,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh26894
+  m_Name: pb_Mesh78082
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3480,7 +3474,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh26924
+  m_Name: pb_Mesh78112
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3868,7 +3862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 324d849df80c4994981b2a240d5be824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetCameraRotatesAround: {fileID: 387543720}
+  TargetCameraRotatesAround: {fileID: 1408703141}
   cameraLookingPoint: {x: 0, y: 0, z: 0}
   cameraOffset: {x: 0, y: 0, z: 0}
   cameraAimRayLength: 10000
@@ -4423,7 +4417,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh26554
+  m_Name: pb_Mesh77744
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5303,20 +5297,41 @@ PrefabInstance:
     - target: {fileID: 1728212552585479480, guid: 520c96f50d000f143a010f5619751a9d,
         type: 3}
       propertyPath: PlasmaTurretPlaces.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1728212552585479480, guid: 520c96f50d000f143a010f5619751a9d,
         type: 3}
       propertyPath: LaserTurretPlaces.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1728212552585479480, guid: 520c96f50d000f143a010f5619751a9d,
         type: 3}
       propertyPath: PlasmaTurretPlaces.Array.data[0]
       value: 
       objectReference: {fileID: 1695669897}
+    - target: {fileID: 1728212552585479480, guid: 520c96f50d000f143a010f5619751a9d,
+        type: 3}
+      propertyPath: PlasmaTurretPlaces.Array.data[1]
+      value: 
+      objectReference: {fileID: 1695669897}
+    - target: {fileID: 1728212552585479480, guid: 520c96f50d000f143a010f5619751a9d,
+        type: 3}
+      propertyPath: LaserTurretPlaces.Array.data[0]
+      value: 
+      objectReference: {fileID: 1559989238}
+    - target: {fileID: 1728212552585479480, guid: 520c96f50d000f143a010f5619751a9d,
+        type: 3}
+      propertyPath: LaserTurretPlaces.Array.data[1]
+      value: 
+      objectReference: {fileID: 1695669897}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 520c96f50d000f143a010f5619751a9d, type: 3}
+--- !u!1 &1408703141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6684625183803712031, guid: 520c96f50d000f143a010f5619751a9d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1408703140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1411734492
 GameObject:
   m_ObjectHideFlags: 0
@@ -5844,6 +5859,12 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!1 &1559989238 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7811729197042519024, guid: 520c96f50d000f143a010f5619751a9d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1408703140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1575326635
 GameObject:
   m_ObjectHideFlags: 0
